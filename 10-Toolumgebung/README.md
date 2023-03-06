@@ -44,5 +44,12 @@ zum Beispiel:
 
 vagrant init ubuntu/xenial64
 
+### Wo sind Probleme aufgetreten ###
+Die von Hand installierte Ubuntu VM musste mehrmals installiert werden, bevor diese richtig korrekt eingerichtet wurde.
+
+Der SSH Key in Gitlab hatte anfangs ein Fehler, sodass ich immer das Passwort eingeben musste, nach einer neueinrichtung hat das jedoch funktioniert.
+
+
+
 
 
