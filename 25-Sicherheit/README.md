@@ -27,3 +27,7 @@ So können die Firewall Regeln eingeben:
     vagrant ssh database
     sudo ufw allow from [IP der Web-VM] to any port 3306
     exit
+
+Bei diesen Anfragen erhalte ich momentan leider noch keine Antwort:
+    $ curl -f 192.168.55.101
+    $ curl -f 192.168.55.100:3306
