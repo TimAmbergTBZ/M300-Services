@@ -30,4 +30,7 @@ So können die Firewall Regeln eingeben:
 
 Bei diesen Anfragen erhalte ich momentan leider noch keine Antwort:
     $ curl -f 192.168.55.101
-    $ curl -f 192.168.55.100:3306
+    $ curl -f 192.168.55.100:3306!
+    
+    
+    
