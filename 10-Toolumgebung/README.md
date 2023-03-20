@@ -268,10 +268,10 @@ Hier werden mit Terminal commands angegeben, das apache überhaupt installiert w
 Wir benötigen ein Programm, um Code zu schreiben und diese Dokumentation in Markup zu verfassen. Hier habe ich mich für Visual Studio Code entschieden, da ich dieses Programm schon länger kenne und die Handhabung sehr angenehm ist. 
 
 Damit wir aber optimal arbeiten können, empfehle ich folgende Erweiterungen:
+![Alt text](../25-Sicherheit/2023-03-20%2013_34_50-README.md%20-%20M300-Services%20-%20Visual%20Studio%20Code.png)
 
-
-
-Erweiterungen lassen sich einfach in 
+Ich kann alle diese Erweiterungen empfehlen, insbesondere die MarkDown Extesion ist natürlich sehr wichtig für dieses Projekt.
+Erweiterungen lassen sich einfach im Programm auf der linken Seite installieren.
 ## Wo sind Probleme aufgetreten ##
 
 Die von Hand installierte Ubuntu VM musste mehrmals installiert werden, bevor diese richtig korrekt eingerichtet wurde. Dies lag höchstwahrscheindlich an der Festplattengrösse.
