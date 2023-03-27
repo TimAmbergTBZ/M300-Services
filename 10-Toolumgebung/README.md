@@ -2,7 +2,7 @@
 
 ## GitHub ##
 
-### GitHub Account erstellen###
+### GitHub Account  ###
 
 Ein GitHub Account kann unter www.github.com erstellt werden. Ein GitHub Account ist eine Voraussetztung für die folgenden Schritte.
 
