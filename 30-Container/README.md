@@ -134,3 +134,160 @@ Jetzt wollen wir den mySQL Container permanent an den Hostport 3306 weiterleiten
 ```bash
 docker run --rm -d -p 3306:3306 mysql
 ```
+
+
+
+Volumes
+===
+
+[&uarr; nach oben](https://github.com/Silvan-Mattig/M300-Services/tree/main/30-Container#m300---30-container)
+
+Bisher gingen alle Änderungen im Dateisystem verloren, wenn der Docker-Container gelöscht wurde. Um Daten auch über das Löschen des Containers hinaus zu erhalten, bietet Docker verschiedene Optionen:
+
+* Daten auf dem Host ablegen: Man kann die Daten auf dem Hostsystem speichern, auf dem Docker läuft. Dadurch bleiben die Daten auch erhalten, wenn der Container gelöscht wird.
+
+* Daten zwischen Containern teilen: Man kann Daten zwischen verschiedenen Containern teilen. Dadurch können mehrere Container auf dieselben Daten zugreifen und die Daten bleiben erhalten, auch wenn einer der Container gelöscht wird.
+
+* Eigene Volumes erstellen: Man kann eigene Volumes erstellen, um Daten zu speichern. Diese Volumes sind unabhängig vom Container und können auch von anderen Containern genutzt werden. Dadurch bleiben die Daten erhalten, auch wenn der Container gelöscht wird.
+
+Diese Optionen erlauben es, Daten auch über das Löschen eines Containers hinaus zu behalten und erleichtern die Verwaltung von Daten in Docker-Containern.
+
+## Volume - Verzeichnis ##
+
+Ein Volume ist ein spezielles Verzeichnis auf dem Hostsystem, in dem ein oder mehrere Docker-Container ihre Daten speichern können. Volumes bieten verschiedene nützliche Funktionen für die Verwaltung von persistenter oder gemeinsam genutzter Daten.
+
+## Wie erstellt man ein neues Volume /data Verzeichnis? ##
+
+Man muss den Folgenden Befehl einggeben, dass ein neues Docker Volume angelegt wird.
+
+```
+docker volume create data
+```
+
+Mit dem Folgenden Befehl kann man Überprüfen, ob der Befehl funktioniert hat. Somit werden alle verfügbaren Docker-Volumes aufgelistet.
+```
+docker volume ls
+```
+
+Damit man das Volume verwenden kann, muss man die folgenden Zeilen im Docker-Compose hinzufügen. Smoit wird "my-data" durch den gewünschten Namen des Volumes ersetzt.
+```
+volumes:
+  my-data:
+```
+
+## Datencontainer ##
+
+Wie starten man einen Container? Und wie kommen andere Personen darauf?
+
+Um den Container zu starten, muss man den folgenden Befehl eingeben:
+```
+docker run
+```
+Um auf ein Container zugreifen zukönnen, muss man folgenden Behfel eingeben:
+```
+--volumes-from
+```
+
+## Named Volumes ##
+
+Docker Volume ist seit Version 1.9 ein wichtiger Befehl, zur Verwaltung von Volumes auf einem Docker Host. Mit dem Befehl kann man ganz viele Sachen verwalten. Alle diese hier aufzuzählen macht aber keinen Sinn.
+
+
+Image-Bereitstellung
+===
+
+[&uarr; nach oben](https://github.com/Silvan-Mattig/M300-Services/tree/main/30-Container#m300---30-container)
+
+Es existieren zahlreiche Optionen, um Images bereitzustellen. Man kann sie durch das Erstellen von Dockerfiles erstellen, von einer Registry mit "docker pull" herunterladen oder mithilfe von "docker load" aus einer Archivdatei installieren.
+
+## Namensgebung für Images ##
+
+Images bestehen aus einem Namen und einer Version, wobei bei fehlender Angabe automatisch ":latest" hinzugefügt wird. Um Images bereitzustellen, sind präzise und beschreibende Namen und Tags von entscheidender Bedeutung. Die Namen und Tags werden entweder beim Bauen der Images oder durch den Befehl "docker tag" festgelegt.
+
+Bei den Tag-Namen muss man auf ein Paar Sachen achten:
+
+* Gross- und Kleinbuchstaben
+* Zahlen
+* Symbolen . und -
+* nicht länger als 128 Zeichen
+* erstes Zeichen kein . oder -
+
+Bei der Entwicklung eines Workflows ist es äußerst wichtig, sinnvolle Namen für Repositories und Tags zu verwenden. Docker hat nur wenige Einschränkungen bezüglich der Namensgebung und erlaubt jederzeit die Erstellung oder Löschung von Namen. Es obliegt also dem Entwicklungsteam, ein angemessenes Namensschema zu entwerfen und anzuwenden
+
+## Warnung vor dem latest-Tag ##
+
+Wenn bei einem "docker run" oder "docker pull" Befehl kein spezifischer Tag angegeben wird, verwendet Docker standardmäßig das Image, das mit "latest" gekennzeichnet ist. Wenn kein solches Image vorhanden ist, wird eine Fehlermeldung ausgegeben.
+
+# Docker Hub #
+
+[&uarr; nach oben](https://github.com/Silvan-Mattig/M300-Services/tree/main/30-Container#m300---30-container)
+
+Ein eigenes Images bereitzustellen ist am einfachsten, wenn man Dockers Hub verwendet.
+
+Das Hub ist soweit kostenlos, man kann aber auch für Repositories von privaten Personen zahlen.
+
+## Docker Hub einrichten ##
+
+1. Zuerst muss man achten, dass man einen Docker Hub Account hat.
+2. Image erstellen
+
+```
+docker tag mysql username/mysql
+```
+
+3. Um das Image hochzuladen, muss man den Befehl push mit verwenden.
+
+```
+docker push username/mysql
+```
+
+Dannach muss das Image noch beschrieben werden.
+
+## Weitere Befehle ##
+
+Nach einem Image kann man suchen mit folgendem Befehl:
+
+```
+docker search mysql
+```
+Um ein Image herunterzuladen, muss man den befehl pull verwenden:
+
+```
+docker pull ubuntu
+```
+
+# Export/Import von Container und Images #
+
+[&uarr; nach oben](https://github.com/Silvan-Mattig/M300-Services/tree/main/30-Container#m300---30-container)
+
+Damit man Images zwischen zwei Hots hin und her verschieben kann, braucht man die Befehle docker export und docker import. Damit man Verzeichnisse hin und her kopieren kann, verwenden wir docker save und docker load.
+```
+docker export
+```
+
+```
+docker import
+```
+
+
+Um seine eigenen Images sehen zu können, muss man folgenden Befehl ausführen:
+
+```
+/vagrant/mysql$ docker images
+```
+Wie kann ich mein Images wiederherstellen?
+
+```
+docker load
+```
+
+
+## TAR-Format ##
+
+Das TAR-Format dient der Archivierung und Komprimierung von Dateien und Verzeichnissen und hat seinen Ursprung in der Sicherung von Daten auf Magnetbändern. Heutzutage wird es oft verwendet, um Dateien in einer einzelnen, komprimierten Datei für die Übertragung oder Speicherung zu archivieren. Um die Dateigröße weiter zu reduzieren, können TAR-Dateien mit verschiedenen Komprimierungsverfahren wie Gzip, bzip2 oder XZ komprimiert werden. Im Bereich von Docker-Images werden TAR-Dateien häufig als Archivdateien verwendet.
+
+# Private Registry #
+
+[&uarr; nach oben](https://github.com/Silvan-Mattig/M300-Services/tree/main/30-Container#m300---30-container)
+
+Es gibt verschiedene Möglichkeiten, Images neben dem Docker Hub bereitzustellen, aber die manuelle Erstellung oder der Export/Import von Images sind suboptimale Optionen. Das Erstellen von Images aus Dockerfiles auf jedem Host ist langsam und kann zu unterschiedlichen Images führen, während das Exportieren und Importieren von Images knifflig und fehleranfällig sein kann. Stattdessen wird empfohlen, eine andere Registry zu verwenden, die selbst gehostet oder von einem anderen Unternehmen betrieben wird.
